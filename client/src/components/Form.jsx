@@ -1,6 +1,6 @@
 const Form = () => {
   return (
-    <div className="max-w-md mx-auto bg-white p-4 rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto bg-white p-4 rounded-lg shadow-lg my-5 h-1/2">
       <h1 className="text-2xl font-bold mb-4 text-center">Creating a Memory</h1>
       <form className="space-y-4">
         <div>
