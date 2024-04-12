@@ -35,3 +35,17 @@ export const createPost = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteData = await PostMessage.findById(id);
+    if (!deleteData) {
+      return res.status(401).json({ msg: "user not found" });
+    }
+    await PostMessage.deleteOne({ _id: id });
+    res.status(200).json({ msg: "user deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};

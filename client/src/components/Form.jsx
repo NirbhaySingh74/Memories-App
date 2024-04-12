@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Form = () => {
+const Form = ({ onFormSubmit }) => {
   const formData = {
     creator: "",
     title: "",
@@ -39,7 +39,7 @@ const Form = () => {
       const res = await axios.post("http://localhost:8000/posts/", postData);
       toast.success("Post created successfully", { position: "top-right" });
       console.log(res);
-
+      onFormSubmit(); // Call the callback function to update posts
       setPost({
         creator: "",
         title: "",

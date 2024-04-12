@@ -1,5 +1,5 @@
 import express from "express";
-import { createPost, getPosts } from "../controllers/posts.js";
+import { createPost, deletePost, getPosts } from "../controllers/posts.js";
 import { upload } from "../middleware/multer.middleware.js";
 const router = express.Router();
 
@@ -7,5 +7,5 @@ const router = express.Router();
 router.post("/", upload.single("selectedFile"), createPost);
 
 router.get("/", getPosts);
-
+router.delete("/:id", deletePost);
 export default router;
