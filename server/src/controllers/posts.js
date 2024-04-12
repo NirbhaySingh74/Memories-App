@@ -9,21 +9,51 @@ export const getPosts = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
 export const createPost = async (req, res) => {
-  const { title, message, creator } = req.body;
-  const fileUrl = await uploadOnCloudinary(req.file.path);
-
-  const newPost = new PostMessage({
-    title,
-    message,
-    creator,
-    selectedFile: fileUrl,
-  });
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const { title, message, creator } = req.body;
+    if (!message) {
+      throw new Error("Message is required");
+    }
+    const fileUrl = await uploadOnCloudinary(req.file.path);
+
+    const newPost = new PostMessage({
+      title,
+      message,
+      creator,
+      selectedFile: fileUrl,
+    });
+
     await newPost.save();
-    res.status(201).json(newPost);
+    return res.status(201).json(newPost);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
   }
 };
+
+// export const createPost = async (req, res) => {
+//   console.log(req.body);
+//   if (!req.file) {
+//     throw new Error("No file uploaded");
+//   }
+//   const { title, message, creator } = req.body;
+//   const fileUrl = await uploadOnCloudinary(req.file.path);
+
+//   const newPost = new PostMessage({
+//     title,
+//     message,
+//     creator,
+//     selectedFile: fileUrl,
+//   });
+//   try {
+//     await newPost.save();
+//     res.status(201).json(newPost);
+//   } catch (error) {
+//     res.status(409).json({ message: error.message });
+//   }
+// };
