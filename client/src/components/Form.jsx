@@ -7,7 +7,7 @@ const Form = () => {
     creator: "",
     title: "",
     message: "",
-    selectedFile: null, // Initialize selectedFile as null
+    selectedFile: null,
   };
   const [post, setPost] = useState(formData);
 
@@ -39,7 +39,14 @@ const Form = () => {
       const res = await axios.post("http://localhost:8000/posts/", postData);
       toast.success("Post created successfully", { position: "top-right" });
       console.log(res);
-      setPost(formData); // Reset form data after successful submission
+
+      setPost({
+        creator: "",
+        title: "",
+        message: "",
+        selectedFile: null,
+      });
+      document.getElementById("imageInput").value = "";
     } catch (err) {
       console.error(err);
       toast.error("Error creating post");
@@ -50,7 +57,6 @@ const Form = () => {
     <div className="max-w-md mx-auto bg-white p-4 rounded-lg shadow-lg my-5 h-1/2">
       <h1 className="text-2xl font-bold mb-4 text-center">Creating a Memory</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
-        {/* Your input fields */}
         <div>
           <label
             htmlFor="creator"
@@ -60,14 +66,14 @@ const Form = () => {
           </label>
           <input
             type="text"
-            id="creator"
             name="creator"
+            value={post.creator}
             onChange={handleChange}
             placeholder="Enter creator's name"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        {/* Other input fields similar to the 'Creator' input */}
+
         <div>
           <label
             htmlFor="title"
@@ -77,13 +83,14 @@ const Form = () => {
           </label>
           <input
             type="text"
-            id="title"
             name="title"
+            value={post.title}
             onChange={handleChange}
             placeholder="Enter title"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
+
         <div>
           <label
             htmlFor="message"
@@ -92,15 +99,15 @@ const Form = () => {
             Message
           </label>
           <textarea
-            id="message"
             name="message"
+            value={post.message}
             onChange={handleChange}
             rows="4"
             placeholder="Enter your message"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           ></textarea>
         </div>
-        {/* File Upload Input */}
+
         <div>
           <label
             htmlFor="imageInput"

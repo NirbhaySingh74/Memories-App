@@ -35,25 +35,3 @@ export const createPost = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
-
-// export const createPost = async (req, res) => {
-//   console.log(req.body);
-//   if (!req.file) {
-//     throw new Error("No file uploaded");
-//   }
-//   const { title, message, creator } = req.body;
-//   const fileUrl = await uploadOnCloudinary(req.file.path);
-
-//   const newPost = new PostMessage({
-//     title,
-//     message,
-//     creator,
-//     selectedFile: fileUrl,
-//   });
-//   try {
-//     await newPost.save();
-//     res.status(201).json(newPost);
-//   } catch (error) {
-//     res.status(409).json({ message: error.message });
-//   }
-// };
