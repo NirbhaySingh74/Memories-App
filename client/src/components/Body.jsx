@@ -8,7 +8,7 @@ const Body = () => {
     setUpdatedPost((prev) => !prev); // Toggle the state to trigger Posts update
   };
   return (
-    <div className="flex">
+    <div className="flex justify-between m-4">
       <Posts updatedPost={updatedPost} />
       <Form onFormSubmit={handleFormSubmit} />
     </div>
